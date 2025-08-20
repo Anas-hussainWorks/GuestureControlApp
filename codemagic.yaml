@@ -2,11 +2,16 @@ workflows:
   android-workflow:
     name: Build Android APK
     max_build_duration: 60
+    instance_type: mac_mini_m2
     environment:
-      sdk: "android-34"
-      java: "17"
+      vars:
+        GRADLE_TASK: "assembleDebug"
     scripts:
-      - name: Build debug APK
-        script: ./gradlew assembleDebug
+      - name: Build Debug APK
+        script: ./gradlew $GRADLE_TASK
     artifacts:
       - app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - your@email.com
